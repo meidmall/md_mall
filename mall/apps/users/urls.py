@@ -16,4 +16,5 @@ urlpatterns = [
     url(r'^addresses/$', views.UserAddressAPIView.as_view()),
     url(r'^browerhistories/$', views.UserHistoryAPIView.as_view()),
     # url(r'^address/$', views.UserAddressListAPIView.as_view())
+    url(r'^(?P<pk>\d+)/password/$', views.ChangePasswordAPIView.as_view()),
 ]

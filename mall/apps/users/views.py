@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 from goods.models import SKU
 from users.models import User, Address
 from users.serializers import RegisterUserSerializer, UserCenterInfoSerializer, UserEmailInfoSerializer, \
-    AddressSerializer, AddUserBrowsingHistorySerializer, SKUSerializer
+    AddressSerializer, AddUserBrowsingHistorySerializer, SKUSerializer, ChangePasswordSerializer
 from users.utils import check_token
 
 '''
@@ -298,4 +298,16 @@ class MergeLoginAPIView(ObtainJSONWebToken):
             response = merge_cookie_to_redis(request, user, response)
 
         return response
+
+
+class ChangePasswordAPIView(UpdateAPIView):
+
+    permission_classes = [IsAuthenticated]
+
+    serializer_class = ChangePasswordSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return User.objects.filter(pk=user.id)
+
 
