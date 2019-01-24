@@ -18,16 +18,14 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-
     url(r'^users/', include('users.urls', namespace='users')),
-
-    url(r'^verifications/',include('verifications.urls')),
-    url(r'^oauth/',include('oauth.urls')),
-    url(r'^areas/',include('areas.urls')),
-    url(r'^goods/',include('goods.urls')),
-    url(r'^cart/',include('carts.urls')),
-    url(r'^orders/',include('orders.urls')),
-    url(r'^pay/',include('pay.urls')),
-
+    url(r'^verifications/', include('verifications.urls')),
+    url(r'^oauth/', include('oauth.urls')),
+    url(r'^areas/', include('areas.urls')),
+    url(r'^goods/', include('goods.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^cart/', include('carts.urls')),
+    url(r'^orders/', include('orders.urls')),
+    url(r'^pay/', include('pay.urls')),
+
 ]

@@ -7,7 +7,6 @@ class SKUIndex(indexes.SearchIndex, indexes.Indexable):
     """
     SKU索引数据模型类
     """
-    #
     text = indexes.CharField(document=True, use_template=True)
 
     id = indexes.IntegerField(model_attr='id')

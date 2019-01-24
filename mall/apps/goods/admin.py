@@ -2,7 +2,8 @@ from django.contrib import admin
 from . import models
 
 # Register your models here.
-from clery_tasks.html.tasks import generate_static_list_search_html
+from celery_tasks.html.tasks import generate_static_list_search_html
+
 
 class GoodsCategoryAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
@@ -21,27 +22,27 @@ admin.site.register(models.GoodsCategory,GoodsCategoryAdmin)
 class SKUAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.save()
-        from clery_tasks.html.tasks import generate_static_sku_detail_html
+        from celery_tasks.html.tasks import generate_static_sku_detail_html
         generate_static_sku_detail_html.delay(obj.id)
 
 
 class SKUSpecificationAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.save()
-        from clery_tasks.html.tasks import generate_static_sku_detail_html
+        from celery_tasks.html.tasks import generate_static_sku_detail_html
         generate_static_sku_detail_html.delay(obj.sku.id)
 
     def delete_model(self, request, obj):
         sku_id = obj.sku.id
         obj.delete()
-        from clery_tasks.html.tasks import generate_static_sku_detail_html
+        from celery_tasks.html.tasks import generate_static_sku_detail_html
         generate_static_sku_detail_html.delay(sku_id)
 
 
 class SKUImageAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.save()
-        from clery_tasks.html.tasks import generate_static_sku_detail_html
+        from celery_tasks.html.tasks import generate_static_sku_detail_html
         generate_static_sku_detail_html.delay(obj.sku.id)
 
         # 设置SKU默认图片
@@ -53,9 +54,8 @@ class SKUImageAdmin(admin.ModelAdmin):
     def delete_model(self, request, obj):
         sku_id = obj.sku.id
         obj.delete()
-        from clery_tasks.html.tasks import generate_static_sku_detail_html
+        from celery_tasks.html.tasks import generate_static_sku_detail_html
         generate_static_sku_detail_html.delay(sku_id)
-
 
 
 admin.site.register(models.GoodsChannel)

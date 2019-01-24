@@ -75,15 +75,13 @@ def generate_static_index_html():
         'contents': contents
     }
 
-    # 1. 获取模板
-    # get_template 会到系统的模板文件夹中 加载指定的模板
+    # 1.获取模板
+    # 会到系统的模板文件中加载指定模板
     template = loader.get_template('index.html')
-    #2. 渲染数据,渲染之后会 生成 html数据
+    # 2.渲染数据,渲染之后会生成html数据
     html_data = template.render(context)
-
-    #3. 指定写入路径
-    file_path = os.path.join(settings.GENERATED_STATIC_HTML_FILES_DIR,'index.html')
-
-    #4. 写入
-    with open(file_path,'w') as f:
+    # 3.指定写入路径
+    file_path = os.path.join(settings.GENERATED_STATIC_HTML_FILES_DIR, 'index.html')
+    # 4.写入
+    with open(file_path, 'w') as f:
         f.write(html_data)

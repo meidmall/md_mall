@@ -1,6 +1,5 @@
-# object 理解为  SKU的实例对象
-# object.字段 对那些字段进行检索
+# object 理解为SKU的实例对象
+# object.字段, 对哪些字段进行检索
 {{ object.name }}
 {{ object.caption }}
 {{ object.id }}
-

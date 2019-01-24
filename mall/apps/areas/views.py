@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 
 from areas.models import Area
-from areas.serailizers import AreaSerializer, SubsAreaSerialzier
+from areas.serializers import AreaSerializer, SubsAreaSerialzier
 
 """
 id      name        parent_id
@@ -18,7 +18,6 @@ id      name        parent_id
 1013    朝阳区         1010
 
 """
-
 
 """
 1. 获取省份信息的时候
@@ -43,29 +42,24 @@ select * from tb_areas where parent_id=110100;
 #     def get(self, request):
 #         pass
 
-    # http://127.0.0.1:8000/areas/infos/        省份信息            list 方法
+# http://127.0.0.1:8000/areas/infos/        省份信息            list 方法
 
 # http://127.0.0.1:8000/areas/infos/110000  市区县信息           retrieve
 
 
 from rest_framework.viewsets import ReadOnlyModelViewSet
-
-from rest_framework_extensions.cache.mixins import ListCacheResponseMixin
-from rest_framework_extensions.cache.mixins import RetrieveCacheResponseMixin
 from rest_framework_extensions.cache.mixins import CacheResponseMixin
-class AreaModelViewSet(CacheResponseMixin,ReadOnlyModelViewSet):
 
-    #让它不是使用分类类
-    pagination_class = None
 
+class AreaModelViewSet(CacheResponseMixin, ReadOnlyModelViewSet):
     # queryset = Area.objects.all()   #所有信息
     # queryset = Area.objects.filter(parent=None)   #省的信息
+    pagination_class = None
 
     def get_queryset(self):
 
         # 我们可以根据 不同的业务逻辑返回不同的数据源
         if self.action == 'list':
-            # Area.objects.filter(parent__isnull=True)
             return Area.objects.filter(parent=None)
         else:
             return Area.objects.all()
