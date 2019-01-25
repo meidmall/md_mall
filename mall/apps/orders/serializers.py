@@ -139,3 +139,36 @@ class OrderSerializer(serializers.ModelSerializer):
             pl.execute()
 
         return order
+
+
+class CommentShowSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OrderGoods
+        fields = ['comment']
+
+
+# class CommentSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = OrderGoods
+#         fields = ['order', 'sku', 'comment', 'score', 'is_anonymous']
+#
+#     def create(self, validated_data):
+#
+#         # user = self.context['request'].user
+#         order = validated_data['order']
+#         sku = validated_data['sku']
+#         comment = validated_data['comment']
+#         score = validated_data['score']
+#         is_anonymous = validated_data['is_anonymous']
+#
+#         instance = OrderGoods.objects.filter(order_id=order.order_id).update(
+#             order_id=order.order_id,
+#             sku_id=sku,
+#             comment=comment,
+#             score=score,
+#             is_anonymous=is_anonymous,
+#         )
+#
+#         return instance

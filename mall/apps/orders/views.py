@@ -9,7 +9,8 @@ from rest_framework.views import APIView
 from django_redis import get_redis_connection
 
 from goods.models import SKU
-from orders.serializers import OrderSKUAPIView, OrderPlaceSerializer, OrderSerializer
+from orders.models import OrderGoods
+from orders.serializers import OrderSKUAPIView, OrderPlaceSerializer, OrderSerializer, CommentShowSerializer
 
 '''
 订单列表展示
@@ -68,3 +69,29 @@ class OrderAPIView(CreateAPIView):
 
     permission_classes = [IsAuthenticated]
     serializer_class = OrderSerializer
+
+from rest_framework.generics import ListAPIView, RetrieveAPIView
+
+
+class CommentShowAPIView(ListAPIView):
+
+    serializer_class = CommentShowSerializer
+
+    def get_queryset(self):
+        sku_id = self.kwargs['pk']
+        return OrderGoods.objects.filter(pk=sku_id)
+
+
+# class CommentAPIView(APIView):
+#
+#     permission_classes = [IsAuthenticated]
+#
+#     def post(self, request, sku_id):
+#         data = request.data
+#         serializer = CommentSerializer(data=data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+
+
+
