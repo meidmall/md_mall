@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from goods.models import SKU
+from libs.captcha import captcha
 from users.models import User, Address
 from users.serializers import RegisterUserSerializer, UserCenterInfoSerializer, UserEmailInfoSerializer, \
     AddressSerializer, AddUserBrowsingHistorySerializer, SKUSerializer
@@ -299,3 +300,54 @@ class MergeLoginAPIView(ObtainJSONWebToken):
 
         return response
 
+
+# 忘记密码重置密码
+"""
+
+总体思路：
+    找回密码
+    找回密码步骤
+    输入账号用户名与图片验证码来获取用户手机号，以便对操作人进行身份认证
+    发送短信验证码，完成身份认证
+    填写两次新密码，并提交
+    完成密码重置
+
+
+
+第一步——这一步主要是判断用户的账号是否存在：
+    1.输入账号和图片验证码，发送请求到后端，以 get 方式，参数拼接在链接后面；
+    2.后端对账号进行验证，调用之前的方法，可以同时判断手机号和账号名，查看有没有当前用户；
+    3.使用序列化器对图片验证码进行验证，取出 text 和图片对应 id，从redis中进行查询出真实的图片
+     text，判断 text 是否过期，对传过来的 text 和真实 text 进行对比，对比前需要进行转码和转小写，判断成功返回数据；
+    4.根据 user 对象生成 access_token；
+    5.将手机号的中间四位使用正则的 sub 方法替换成 * 号，防止手机号直接暴露出去；
+    6.将修改过的手机号和生成的 token 返回给前端，token 中保存正确的手机号。
+
+    技术点：
+        使用 itsdangerous 生成凭据 access_token，使用 TimedJSONWebSignatureSerializer 可以生成带有有效期的 token。
+        JWT 和 itsdangerous 生成的token区别是，JWT 生成的 token 用来保持登录状态使用，
+        而 其他需要验证的 token 都使用由 itsdangerous 生成的。
+
+第二步——这一步主要是验证用户的手机号：
+    前端发送请求，带上上一步生成的 access_token；
+    在模型类中定义验证 token 的方法，使用 itdangerous 提供的方法进行反验证，
+    取出存在 token 中的手机号，进行判断是否在 60s 内，防止重复发送；
+    生成短信验证码，存入 redis，使用异步 celery 发送短信；
+    返回成功消息；
+
+第三步——返回用于设置密码的接口调用凭据 access_token:
+    用户收到短信并填写短信验证码；
+    发送请求到后端，带上 account 和 sms_code;
+    后端编写序列化器对参数进行校验；
+    生成用于修改密码的 token，将 user_id 保存进去，返回 user_id 和 token
+
+第四步——进行密码的重置：
+    进入到这一步，用户的身份已经被确认，进行密码的重置即可，
+    为了防止被别人拿着 access_token 去对别人的用户进行设置，
+    所以也需要对 user_id 和 access_token 中保存的 user_id 进行比较，确认了身份在进行修改。
+
+    在模型类中实现检验修改密码 token 的方法，取出 data，判断 user_id 是否一样；
+    定义重置密码序列化器，判断两次密码是否一样，判断是否是当前用户，返回数据；
+    调用 updata 方法更新密码；
+    返回重置密码成功信息。
+"""

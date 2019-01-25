@@ -76,7 +76,7 @@ CRONJOBS = [
     # 参数一:定时任务的频次 分时日月周
     # 参数二:任务(函数)
     # 参数三:日志的路径(必须正确)
-    ('*/5 * * * *', 'contents.crons.generate_static_index_html', '>> /home/python/Django/meiduo/mall/logs/crontab.log')
+    ('*/1 * * * *', 'contents.crons.generate_static_index_html', '>> /home/python/Desktop/md_mall/mall/logs/crontab.log')
 ]
 
 MIDDLEWARE = [
@@ -201,6 +201,13 @@ CACHES = {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             }
         },
+    "image_verification_code": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/5",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            }
+        },
 }
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "session"
@@ -315,7 +322,7 @@ CKEDITOR_UPLOAD_PATH = ''  # 上传图片保存路径，使用了FastDFS，所�
 DEFAULT_FILE_STORAGE = 'utils.fastdfs.storage.MyStorage'
 
 # FastDFS
-FDFS_URL = 'http://192.168.186.128:8888/'  # 访问图片的路径域名 ip地址修改为自己机器的ip地址
+FDFS_URL = 'http://192.168.174.130:8888/'  # 访问图片的路径域名 ip地址修改为自己机器的ip地址
 FDFS_CLIENT_CONF = os.path.join(BASE_DIR, 'utils/fastdfs/client.conf')
 
 # 生成的静态html文件保存目录
@@ -325,7 +332,7 @@ GENERATED_STATIC_HTML_FILES_DIR = os.path.join(os.path.dirname(BASE_DIR), 'front
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': 'http://192.168.186.128:9200/',  # 此处为elasticsearch运行的服务器ip地址，端口号固定为9200
+        'URL': 'http://192.168.174.130:9200/',  # 此处为elasticsearch运行的服务器ip地址，端口号固定为9200
         'INDEX_NAME': 'meiduo',  # 指定elasticsearch建立的索引库的名称
     },
 }

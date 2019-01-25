@@ -1,5 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer,BadData
+from mall import settings
 # Create your models here.
 '''
 # 根据需求自己定义模型
@@ -18,6 +23,16 @@ class User(AbstractUser):
         db_table = 'tb_users'
         verbose_name = '用户'
         verbose_name_plural = verbose_name
+
+    def generate_verify_email_url(self):
+        serializer = Serializer(settings.SECRET_KEY, 3600)
+
+        # 加载用户信息
+        token = serializer.dumps({'user_id': self.id, 'email': self.email})
+        # 注意拼接的过程中对 token进行decode操作
+        verify_url = 'http://www.meiduo.site:8080/success_verify_email.html?token=' + token.decode()
+
+        return verify_url
 
 
 from utils.models import BaseModel
@@ -44,3 +59,4 @@ class Address(BaseModel):
         verbose_name = '用户地址'
         verbose_name_plural = verbose_name
         ordering = ['-update_time']
+        

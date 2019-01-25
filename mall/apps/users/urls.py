@@ -9,11 +9,11 @@ urlpatterns = [
     url(r'^$', views.RegisterUserAPIView.as_view()),
     # url(r'^auths/$', obtain_jwt_token),
     url(r'^auths/$', views.MergeLoginAPIView.as_view()),
-    # jwt把用户名和密码给系统,让系统进行认证,认证成功之后,jwt生成token
+    # jwt把用户名和密码给系统,让系统进行认证,认证成功之后,jwt生成t   oken
     url(r'^infos/$', views.UserCenterInfoAPIView.as_view()),
     url(r'^emails/$', views.UserEmailInfoAPIView.as_view()),
     url(r'^emails/verification/$', views.UserEmailVerificationAPIView.as_view()),
     url(r'^addresses/$', views.UserAddressAPIView.as_view()),
     url(r'^browerhistories/$', views.UserHistoryAPIView.as_view()),
-    # url(r'^address/$', views.UserAddressListAPIView.as_view())
+    # url(r'^address/$', views.UserAddressListAPIView.as_view()),
 ]
