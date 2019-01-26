@@ -1,26 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e058f9a5-38a4-42a2-bf7c-6167f4efceb3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/front/js/find_password.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mall/apps/accounts/serializers.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mall/apps/accounts/urls.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mall/apps/accounts/utils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/find_password.html" afterPath="$PROJECT_DIR$/front/find_password.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/goods_judge.html" afterPath="$PROJECT_DIR$/front/goods_judge.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/front/js/goods_judge.js" afterPath="$PROJECT_DIR$/front/js/goods_judge.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mall/apps/goods/serializers.py" afterPath="$PROJECT_DIR$/mall/apps/goods/serializers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mall/apps/goods/views.py" afterPath="$PROJECT_DIR$/mall/apps/goods/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mall/apps/users/serializers.py" afterPath="$PROJECT_DIR$/mall/apps/users/serializers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mall/apps/users/urls.py" afterPath="$PROJECT_DIR$/mall/apps/users/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mall/apps/users/views.py" afterPath="$PROJECT_DIR$/mall/apps/users/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mall/apps/verifications/urls.py" afterPath="$PROJECT_DIR$/mall/apps/verifications/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mall/apps/verifications/views.py" afterPath="$PROJECT_DIR$/mall/apps/verifications/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mall/mall/settings.py" afterPath="$PROJECT_DIR$/mall/mall/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mall/mall/urls.py" afterPath="$PROJECT_DIR$/mall/mall/urls.py" />
-    </list>
+    <list default="true" id="e058f9a5-38a4-42a2-bf7c-6167f4efceb3" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -50,8 +31,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mall/apps/users/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="324" column="0" lean-forward="false" selection-start-line="324" selection-start-column="0" selection-end-line="324" selection-end-column="0" />
+            <state relative-caret-position="101">
+              <caret line="316" column="13" lean-forward="true" selection-start-line="316" selection-start-column="13" selection-end-line="316" selection-end-column="13" />
               <folding>
                 <element signature="e#988#1163#0" expanded="false" />
                 <element signature="e#3210#3357#0" expanded="false" />
@@ -167,7 +148,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="183" />
+    <option name="x" value="157" />
     <option name="y" value="52" />
     <option name="width" value="1095" />
     <option name="height" value="564" />
@@ -616,8 +597,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="183" y="52" width="1095" height="564" extended-state="4" />
-    <editor active="false" />
+    <frame x="157" y="52" width="1095" height="564" extended-state="4" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19183286" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -629,7 +610,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43460765" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4307036" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4307036" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1096,8 +1077,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mall/apps/users/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="324" column="0" lean-forward="false" selection-start-line="324" selection-start-column="0" selection-end-line="324" selection-end-column="0" />
+        <state relative-caret-position="101">
+          <caret line="316" column="13" lean-forward="true" selection-start-line="316" selection-start-column="13" selection-end-line="316" selection-end-column="13" />
           <folding>
             <element signature="e#988#1163#0" expanded="false" />
             <element signature="e#3210#3357#0" expanded="false" />
