@@ -172,15 +172,16 @@ class WeiboAuthURLView(APIView):
         :return:
         """
         # 1.通过查询字符串
-        next = request.query_params.get('state')
-        if not next:
-            next = "/"
+        # next = request.query_params.get('state')
+        # if not next:
+        #     next = "/"
+        # state = '/'
 
         # 获取微博登录网页
         oauth = OAuthWeibo(client_id=settings.WEIBO_CLIENT_ID,
-                        client_secret=settings.WEIBO_CLIENT_SECRET,
+                        # client_secret=settings.WEIBO_CLIENT_SECRET,
                         redirect_uri=settings.WEIBO_REDIRECT_URI,
-                        state=next
+                        # state=next
                            )
 
 

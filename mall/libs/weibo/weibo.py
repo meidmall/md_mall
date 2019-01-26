@@ -11,8 +11,8 @@ class OAuthWeibo(object):
     def __init__(self,client_id = None, client_secret = None, redirect_uri = None, state=None):
         self.client_id = client_id or settings.WEIBO_CLIENT_ID
         self.redirect_uri = redirect_uri or settings.WEIBO_REDIRECT_URI
-        self.client_secret=client_secret or settings.WEIBO_CLIENT_SECRET
-        self.state = state or settings.WEIBO_STATE
+        # self.client_secret=client_secret or settings.WEIBO_CLIENT_SECRET
+        # self.state = state or settings.WEIBO_STATE
 
     def get_weibo_url(self):
         """
@@ -47,8 +47,9 @@ class OAuthWeibo(object):
             "client_id":self.client_id,
             "client_secret":self.client_secret,
             "grant_type":"authorization_code",
+            "code": code,
             "redirect_uri":self.redirect_uri,
-            "code":code
+
         }
 
         # 发送请求
