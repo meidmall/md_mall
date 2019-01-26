@@ -1,12 +1,15 @@
 from django.shortcuts import render
 
 # Create your views here.
+from itsdangerous import Serializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from QQLoginTool.QQtool import OAuthQQ
+
+from libs.weibo.weibo import OAuthWeibo
 from mall import settings
-from oauth.models import OAuthQQUser
+from oauth.models import OAuthQQUser, OAuthWeiboUser
 from oauth.serializers import OAuthQQUserSerializer
 from oauth.utils import generic_openid
 
@@ -158,3 +161,87 @@ class OAuthQQUserAPIView(APIView):
 # token = s.dumps(data)
 # # 4.获取数据,对数据进行解密
 # s.loads(token)
+
+class WeiboAuthURLView(APIView):
+    """定义微博第三方登录的视图类"""
+    def get(self, request):
+        """
+        获取微博登录的链接
+        oauth/weibo/authorization/?next=/
+        :param request:
+        :return:
+        """
+        # 1.通过查询字符串
+        next = request.query_params.get('state')
+        if not next:
+            next = "/"
+
+        # 获取微博登录网页
+        oauth = OAuthWeibo(client_id=settings.WEIBO_CLIENT_ID,
+                        client_secret=settings.WEIBO_CLIENT_SECRET,
+                        redirect_uri=settings.WEIBO_REDIRECT_URI,
+                        state=next
+                           )
+
+
+        login_url = oauth.get_weibo_url()
+        return Response({'login_url': login_url})
+
+class WeiboOauthView(APIView):
+    """验证微博登录"""
+    def get(self, request):
+        """
+        第三方登录检查
+        oauth/sina/user/
+        ?code=0e67548e9e075577630cc983ff79fa6a
+        :param request:
+        :return:
+        """
+        # 1.获取code值
+        code = request.query_params.get("code")
+
+        # 2.检查参数
+        if not code:
+            return Response({'errors': '缺少code值'}, status=400)
+
+        # 3.获取token值
+        next = "/"
+
+        # 获取微博登录网页
+        weiboauth = OAuthWeibo(client_id=settings.WEIBO_CLIENT_ID,
+                        client_secret=settings.WEIBO_CLIENT_SECRET,
+                        redirect_uri=settings.WEIBO_REDIRECT_URI,
+                        state=next)
+        weibotoken = weiboauth.get_access_token(code=code)
+        print(weibotoken)
+
+        # 5.判断是否绑定过美多账号
+        try:
+            weibo_user = OAuthWeiboUser.objects.get(weibotoken=weibotoken)
+        except:
+            # 6.未绑定,进入绑定页面,完成绑定
+            tjs = Serializer(settings.SECRET_KEY, 300)
+            weibotoken = tjs.dumps({'weibotoken': weibotoken}).decode()
+
+            return Response({'access_token': weibotoken})
+        else:
+            # 7.绑定过,则登录成功
+            # 生成jwt-token值
+            from rest_framework_jwt.settings import api_settings
+            user = weibo_user.user
+            jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+            jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
+            payload = jwt_payload_handler(user)  # 生成载荷部分
+            token = jwt_encode_handler(payload)  # 生成token
+
+            response = Response(
+                {
+                    'token': token,
+                    'username': user.username,
+                    'user_id': user.id
+                }
+            )
+
+        return response
+
