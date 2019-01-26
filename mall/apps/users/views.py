@@ -7,6 +7,7 @@ from rest_framework.response import Response
 
 from rest_framework.views import APIView
 
+from accounts.utils import undangerous
 from goods.models import SKU
 from users.models import User, Address
 from users.serializers import RegisterUserSerializer, UserCenterInfoSerializer, UserEmailInfoSerializer, \
@@ -298,4 +299,29 @@ class MergeLoginAPIView(ObtainJSONWebToken):
             response = merge_cookie_to_redis(request, user, response)
 
         return response
+
+
+class ResetpasswordsAPIView(APIView):
+    def post(self,request,user_id):
+        data = request.data
+        token = data['access_token']
+        #拿到解码之后的token
+        user_id_token = undangerous(token)
+        token_id = user_id_token['mobile']
+        if str(user_id) != str(token_id):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        #判断两个密码是否一致，一致则保存入库
+        if data['password'] != data['password2']:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            user=User.objects.get(id=token_id)
+            user.set_password(data['password'])
+            user.save()
+        # user = User.objects.get(id=token_id)
+
+
+
+        return Response(status=status.HTTP_206_PARTIAL_CONTENT)
+
 

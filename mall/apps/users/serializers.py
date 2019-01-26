@@ -243,3 +243,5 @@ class SKUSerializer(serializers.ModelSerializer):
 
 
 
+# class PasswordCheckingSerializer(serializers.Serializer):
+#

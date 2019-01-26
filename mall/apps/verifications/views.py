@@ -86,3 +86,19 @@ class RegisterSmscodeView(APIView):
 
         # 6.返回相应
         return Response({'msg': 'ok'})
+
+
+class PasswordLogAPIView(APIView):
+
+
+    def get(self, request, image_code_id):
+        # 1.接受image_code_id
+        # 2.生成图片和验证码
+        text, image = captcha.generate_captcha()
+        # 3.把验证码保存到redis中
+        # 3.1连接redis
+        redis_conn = get_redis_connection('code')
+        # 3.2设置图片
+        redis_conn.setex('img_'+image_code_id, 2*60, text)
+        # 返回响应
+        return HttpResponse(image, content_type='image/jpeg')

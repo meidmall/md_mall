@@ -16,4 +16,7 @@ urlpatterns = [
     url(r'^addresses/$', views.UserAddressAPIView.as_view()),
     url(r'^browerhistories/$', views.UserHistoryAPIView.as_view()),
     # url(r'^address/$', views.UserAddressListAPIView.as_view())
+    # '/users/'+ this.user_id +'/password/'
+    url(r'^(?P<user_id>\d+)/password/$',views.ResetpasswordsAPIView.as_view())
+
 ]

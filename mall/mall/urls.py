@@ -29,5 +29,8 @@ urlpatterns = [
     url(r'^orders/', include('orders.urls')),
 
     url(r'^pay/', include('pay.urls')),
-
+    url(r'^image_codes/',include('verifications.urls')),
+    url(r'^accounts/',include('accounts.urls')),
+    url(r'^sms_codes/',include('accounts.urls')),
+    #'/users/'+ this.user_id +'/password/'
 ]

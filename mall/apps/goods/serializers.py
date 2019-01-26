@@ -57,7 +57,7 @@ class UserOrderGoodsSerializer(serializers.ModelSerializer):
 class UserOrdersSerializer(serializers.ModelSerializer):
 
     skus = UserOrderGoodsSerializer(many=True)
-
+    # create_time = serializers.DateTimeField(decimal_places=0)
     class Meta:
         model = OrderInfo
         fields = ['create_time','order_id', 'total_amount', 'pay_method', 'status', 'skus','freight']
