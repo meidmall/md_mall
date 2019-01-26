@@ -5,6 +5,8 @@ from goods.models import SKU
 from orders.models import OrderInfo, OrderGoods
 from django.db import transaction
 
+from users.models import User
+
 
 class OrderSKUAPIView(serializers.ModelSerializer):
 
@@ -143,32 +145,58 @@ class OrderSerializer(serializers.ModelSerializer):
 
 class CommentShowSerializer(serializers.ModelSerializer):
 
+    username = serializers.CharField(label='username')
+
     class Meta:
         model = OrderGoods
-        fields = ['comment']
+        fields = ['comment', 'is_anonymous', 'score', 'username']
 
 
-# class CommentSerializer(serializers.ModelSerializer):
-#
-#     class Meta:
-#         model = OrderGoods
-#         fields = ['order', 'sku', 'comment', 'score', 'is_anonymous']
-#
-#     def create(self, validated_data):
-#
-#         # user = self.context['request'].user
-#         order = validated_data['order']
-#         sku = validated_data['sku']
-#         comment = validated_data['comment']
-#         score = validated_data['score']
-#         is_anonymous = validated_data['is_anonymous']
-#
-#         instance = OrderGoods.objects.filter(order_id=order.order_id).update(
-#             order_id=order.order_id,
-#             sku_id=sku,
-#             comment=comment,
-#             score=score,
-#             is_anonymous=is_anonymous,
-#         )
-#
-#         return instance
+class CommentUserSerializer(serializers.ModelSerializer):
+
+    comment = CommentShowSerializer(many=True)
+
+    class Meta:
+        model = OrderInfo
+        fields = ['user', 'comment']
+
+
+class SkuSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SKU
+        fields = ('name', 'default_image_url','id')
+
+
+class ScoreOrderSerializer(serializers.ModelSerializer):
+    sku = SkuSerializer()
+
+    class Meta:
+        model = OrderGoods
+        fields = ('sku','comment','price','is_anonymous')
+
+
+class CommentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OrderGoods
+        fields = ['order', 'sku', 'comment', 'score', 'is_anonymous']
+
+    # def create(self, validated_data):
+    #
+    #     # user = self.context['request'].user
+    #     order = validated_data['order']
+    #     sku = validated_data['sku']
+    #     comment = validated_data['comment']
+    #     score = validated_data['score']
+    #     is_anonymous = validated_data['is_anonymous']
+    #
+    #     instance = OrderGoods.objects.filter(order_id=order.order_id).update(
+    #         order_id=order.order_id,
+    #         sku_id=sku,
+    #         comment=comment,
+    #         score=score,
+    #         is_anonymous=is_anonymous,
+    #     )
+    #
+    #     return instance

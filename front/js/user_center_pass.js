@@ -59,10 +59,13 @@ var vm = new Vue({
                     )
                     .then(function(response){
                         alert('保存成功');
+                        sessionStorage.clear();
+                        localStorage.clear();
+                        location.href = '/login.html';
                     })
                     .catch(function(error){
                         if (error.response.status === 403) {
-                            location = '/index.html?next=/user_center_pass.html';
+                            location = '/login.html';
                         } else {
                             alert(error.response.data.message);
                         }
