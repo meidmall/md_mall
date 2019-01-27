@@ -210,7 +210,11 @@ from rest_framework.generics import CreateAPIView, ListAPIView
 class UserAddressAPIView(CreateAPIView, ListAPIView):
 
     serializer_class = AddressSerializer
-    queryset = Address.objects.all()
+    # queryset = Address.objects.filter()
+
+    def get_queryset(self):
+        user = self.request.user
+        return Address.objects.filter(user=user)
 
     def get(self, request, *args, **kwargs):
         data = self.get_queryset()
