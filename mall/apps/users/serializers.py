@@ -253,19 +253,26 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'password', 'password2', 'old_password')
 
-    def update(self, instance, validated_data):
-        old_password = validated_data['old_password']
-        password = validated_data['password']
-        password2 = validated_data['password2']
+    def validate(self, attrs):
+        user = self.context['request'].user
+        old_password = attrs['old_password']
+        password = attrs['password']
+        password2 = attrs['password2']
 
         if not all([old_password, password, password2]):
             raise serializers.ValidationError('参数不全')
 
-        if not instance.check_password(old_password):
+        if not user.check_password(old_password):
             raise serializers.ValidationError('原密码错误')
 
         if password != password2:
             raise serializers.ValidationError('两次密码不一致')
+
+        return attrs
+
+    def update(self, instance, validated_data):
+
+        password = validated_data['password']
 
         instance.password = password
         instance.set_password(password)
